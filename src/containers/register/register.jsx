@@ -1,4 +1,10 @@
+/*
+注册路由组件，本身是一个UI，但是我们要将他分装成一个容器组件暴露出去
+ */
 import React,{Component} from 'react';
+import {connect} from 'react-redux';
+//重定向
+import {Redirect} from 'react-router-dom';
 
 //引入样式组件
 import {
@@ -14,8 +20,13 @@ import {
 //引入组件logo
 import Logo from '../../components/logo/logo';
 
+import {register} from '../../redux/actions';
 
-export default class Register extends Component{
+/*
+测试:
+ */
+
+class Register extends Component{
   state = {
     username:'',
     password:'',
@@ -28,19 +39,25 @@ export default class Register extends Component{
     })
   }
   toLogin = () =>{
-    this.props.history.replace('./login');
+    this.props.history.replace('/login');
   }
   register = () =>{
     console.log(this.state);
+    this.props.register(this.state);
 }
   render(){
     const {type} = this.state;
+    const {redirectTo,msg} = this.props.user;
+    if(redirectTo){
+      return <Redirect to={redirectTo}/>
+    }
     return (
       <div>
         <NavBar>硅谷直聘</NavBar>
         <Logo/>
         <WingBlank>
           <List>
+            <p>{msg}</p>
             <InputItem type='text' placeholder='请输入用户名' onChange={val => this.handleChange('username',val)}>用户名:</InputItem>
             <WhiteSpace/>
             <InputItem type='password' placeholder='请输入密码' onChange={val => this.handleChange('password',val)}>密码:</InputItem>
@@ -62,3 +79,8 @@ export default class Register extends Component{
     )
   }
 }
+
+export default connect(
+  state=>({user:state.user}),
+  {register}//对象action中的方法
+)(Register)
