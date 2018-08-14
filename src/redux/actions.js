@@ -34,7 +34,7 @@ export function register({username,password,type}) {
 //异步登录
 export function login({username,password}) {
   return dispatch =>{
-    reqLogin(username,password).then(response=>{
+    reqLogin({username,password}).then(response=>{
       const result = response.data;
       if(result.code === 0){
         const user = result.data;
