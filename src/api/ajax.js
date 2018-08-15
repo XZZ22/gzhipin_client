@@ -20,7 +20,7 @@ export default function ajax(url = '',data = {},type = 'GET') {
       url += '?'+dataStr;
     }
 
-    return axios.post(url);
+    return axios.get(url);
   }else {
     return axios.post(url,data);
   }

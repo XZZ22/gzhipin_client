@@ -14,14 +14,18 @@ import Login from './containers/login/login';
 import Register from './containers/register/register';
 import Main from './containers/main/main';
 
+
+//引入样式
+import './assets/css/index.less';
+
 ReactDOM.render(
   (
     <Provider store={store}>
       <HashRouter>
         <Switch>
-          <Route path='/login' component={Login}></Route>
-          <Route path='/register' component={Register}></Route>
-          <Route component={Main}></Route>
+          <Route path='/login' component={Login}/>
+          <Route path='/register' component={Register}/>
+          <Route component={Main}/>
         </Switch>
       </HashRouter>
     </Provider>
